@@ -24,10 +24,10 @@ class PredictPipeline:
     def predict(self, features):
         try:
             test_data = features
-            test_data.to_csv("notebook\data\encoded_emotions_test_dataset.csv")
+            test_data.to_csv("notebook\data\encoded_emotions_predict_data.csv")
             attributes = ['sadness', 'joy', 'love', 'anger', 'fear', 'surprise']
-            ucc_data_module = UCC_Data_Module(_, _, 'notebook\data\encoded_emotions_test_dataset.csv"', attributes=attributes)
-            model1 = torch.load("/content/drive/MyDrive/MLProjects/EmotionDetectionText/RoBERTa_Fine_tuned.pkl")
+            ucc_data_module = UCC_Data_Module(_, _, "notebook\data\encoded_emotions_predict_data.csv", attributes=attributes)
+            model1 = torch.load("artifacts\RoBERTa_Fine_tuned.pkl")
             predictions = self.classify_raw_comments(model1, ucc_data_module)
             return predictions
         except Exception as e:
@@ -35,7 +35,7 @@ class PredictPipeline:
 
 
 class CustomData:
-    def __init__(self, text: str):
+    def __init__(self, text: list):
         self.text=text 
     
     def get_data_as_data_frame(self):

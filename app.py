@@ -2,8 +2,8 @@ from fastapi import FastAPI
 from src.pipeline.predict_pipeline import CustomData, PredictPipeline
 app = FastAPI()
 
-@app.get("/predict")
-def predict_datapoint(text: str):
+@app.get('/')
+async def predict_datapoint(text: list):
     data=CustomData(text) 
     pred= data.get_data_as_data_frame()
     print(pred)
